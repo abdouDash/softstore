@@ -1,0 +1,1 @@
+import { clsx, type ClassValue } from 'clsx'`nimport { twMerge } from 'tailwind-merge'`nexport function cn(...i: ClassValue[]) { return twMerge(clsx(i)) }`nexport function formatPrice(cents: number, currency = 'USD') { return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(cents / 100) }
