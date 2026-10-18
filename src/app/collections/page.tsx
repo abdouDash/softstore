@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, Filter, Grid, Moon, Droplets, Flame } from "lucide-react";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { Star, Grid, Moon, Droplets, Flame, ShoppingBag } from "lucide-react";
 
 const ALL_PACKS = [
   { id: 1, slug: "draculas-castle", title: "Dracula's Castle", price: 12.00, mood: "gothic", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" },
@@ -23,26 +23,82 @@ const MOODS = [
   { id: "cyber", label: "Cyber-Vampire", icon: Flame },
 ];
 
+function CollectionCard({ pack }: { pack: any }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  // Instant tracking for Collections too
+  const rotateX = useTransform(y, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(x, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  function handleMouse(event: React.MouseEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    x.set((event.clientX - rect.left) / rect.width - 0.5);
+    y.set((event.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  return (
+    <motion.div 
+      layout
+      initial={{ opacity: 0, scale: 0.9 }} 
+      animate={{ opacity: 1, scale: 1 }} 
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.4 }}
+      className="perspective-[1200px] w-full max-w-[320px] mx-auto" 
+      onMouseMove={handleMouse} 
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+    >
+      <motion.div 
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} 
+        className="relative flex flex-col h-full bg-[#0a0000]/60 backdrop-blur-md rounded-2xl overflow-hidden border border-red-900/20 group shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(220,38,38,0.3)]"
+      >
+        <Link href={`/packs/${pack.slug}`} className="flex flex-col h-full relative z-10">
+          <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ transform: "translateZ(30px)" }}>
+            <img src={pack.image} alt={pack.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/20 to-transparent"></div>
+            <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-full text-[10px] font-bold text-white flex items-center gap-1 border border-red-500/30">
+              <Star size={10} className="text-red-500 fill-red-500" /> 4.9
+            </div>
+          </div>
+          
+          <div className="p-4 -mt-8 relative z-20 text-center flex-grow flex flex-col justify-between" style={{ transform: "translateZ(40px)" }}>
+            <div>
+              <div className="text-[9px] font-bold tracking-widest text-red-500 uppercase mb-1">{pack.mood}</div>
+              <h3 className="text-xl font-serif text-white group-hover:text-red-400 transition-colors drop-shadow-md">{pack.title}</h3>
+            </div>
+            <div className="mt-3 pt-3 border-t border-red-900/30 flex items-center justify-between">
+              <span className="text-[10px] text-gray-400 font-medium">10 Wallpapers</span>
+              <span className="text-lg font-bold text-white">${pack.price.toFixed(2)}</span>
+            </div>
+            <div className="mt-3 w-full overflow-hidden h-0 group-hover:h-10 transition-all duration-500 ease-in-out">
+              <button className="w-full bg-gradient-to-r from-red-800 to-red-600 text-white text-[10px] font-bold tracking-widest uppercase py-2.5 rounded-lg flex items-center justify-center gap-2">
+                <ShoppingBag size={14} /> Buy Now
+              </button>
+            </div>
+          </div>
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function CollectionsPage() {
   const [activeMood, setActiveMood] = useState("all");
-
-  const filteredPacks = activeMood === "all" 
-    ? ALL_PACKS 
-    : ALL_PACKS.filter(pack => pack.mood === activeMood);
+  const filteredPacks = activeMood === "all" ? ALL_PACKS : ALL_PACKS.filter(pack => pack.mood === activeMood);
 
   return (
     <div className="w-full min-h-screen pt-24 bg-[#050000] relative overflow-hidden font-sans vampire-bg">
       <div className="fog"></div>
+      <div className="epic-lightning">
+        <div className="lightning-flash"></div>
+      </div>
       
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 relative z-10">
-        
-        {/* Header Section */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12 relative z-10">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-serif text-white spooky-glow mb-4">Explore Collections</h1>
           <p className="text-[#888888] max-w-lg mx-auto">Find the perfect dark aesthetic for your screen. Filter by mood and dive into the abyss.</p>
         </div>
 
-        {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12">
           {MOODS.map((mood) => {
             const Icon = mood.icon;
@@ -52,9 +108,7 @@ export default function CollectionsPage() {
                 key={mood.id}
                 onClick={() => setActiveMood(mood.id)}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
-                  isActive 
-                    ? "bg-red-900/40 border-red-500 text-red-400 shadow-[0_0_20px_rgba(220,38,38,0.4)]" 
-                    : "bg-black/40 border-white/10 text-[#888888] hover:border-red-500/50 hover:text-white"
+                  isActive ? "bg-red-900/40 border-red-500 text-red-400 shadow-[0_0_20px_rgba(220,38,38,0.4)]" : "bg-black/40 border-white/10 text-[#888888] hover:border-red-500/50 hover:text-white"
                 }`}
               >
                 <Icon size={16} />
@@ -64,45 +118,13 @@ export default function CollectionsPage() {
           })}
         </div>
 
-        {/* Grid Section */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 lg:gap-12">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence>
             {filteredPacks.map((pack) => (
-              <motion.div 
-                layout
-                key={pack.id} 
-                initial={{ opacity: 0, scale: 0.9 }} 
-                animate={{ opacity: 1, scale: 1 }} 
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }} 
-                className="group cursor-pointer flex flex-col items-center"
-              >
-                <Link href={`/packs/${pack.slug}`} className="w-full">
-                  <div className="relative w-full max-w-[320px] mx-auto flex flex-col items-center z-10">
-                    <div className="bg-black rounded-xl p-2 relative z-10 w-full monitor-3d-vampire overflow-hidden">
-                      <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-red-950/60 to-transparent pointer-events-none"></div>
-                    </div>
-                    <div className="flex flex-col items-center relative z-0 -mt-1">
-                      <div className="w-16 h-12 bg-gradient-to-b from-gray-800 to-black"></div>
-                      <div className="w-32 h-2 bg-gradient-to-r from-black via-gray-800 to-black rounded-sm shadow-md"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-8 text-center">
-                    <div className="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">{pack.mood}</div>
-                    <h3 className="text-xl font-serif text-white group-hover:text-red-500 transition-colors">{pack.title}</h3>
-                    <div className="flex justify-center items-center gap-1 mt-2">
-                      {[...Array(5)].map((_, j) => <Star key={j} size={12} className="text-red-500 fill-red-500" />)}
-                    </div>
-                    <p className="text-sm text-gray-400 mt-2">10 Wallpapers • ${pack.price.toFixed(2)}</p>
-                  </div>
-                </Link>
-              </motion.div>
+              <CollectionCard key={pack.id} pack={pack} />
             ))}
           </AnimatePresence>
         </motion.div>
-
       </div>
     </div>
   );
