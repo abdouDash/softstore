@@ -20,8 +20,8 @@ function PackCard({ pack }: { pack: any }) {
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 400, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 400, damping: 30 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
   function handleMouse(event: React.MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -30,39 +30,43 @@ function PackCard({ pack }: { pack: any }) {
   }
 
   return (
-    <motion.div className="perspective-[1200px]" onMouseMove={handleMouse} onMouseLeave={() => { x.set(0); y.set(0); }}>
-      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative bg-gradient-to-b from-[#0a0000] to-[#050000] rounded-2xl p-6 border border-red-900/30 flex flex-col h-full explore-card group overflow-hidden">
-        
-        {/* Red Glow Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-red-600/10 blur-[80px] rounded-full group-hover:bg-red-600/30 transition-all duration-700"></div>
-
+    <motion.div className="perspective-[1200px] w-full" onMouseMove={handleMouse} onMouseLeave={() => { x.set(0); y.set(0); }}>
+      <motion.div 
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} 
+        className="relative flex flex-col h-full bg-[#0a0000]/60 backdrop-blur-md rounded-3xl overflow-hidden border border-red-900/20 group shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 hover:shadow-[0_20px_50px_rgba(220,38,38,0.3)]"
+      >
         <Link href={`/packs/${pack.slug}`} className="flex flex-col h-full relative z-10">
           
-          {/* Floating 3D Image without Frame */}
-          <div className="relative w-full aspect-video flex items-center justify-center mb-8" style={{ transform: "translateZ(50px)" }}>
-            <motion.img 
+          {/* Full Image (No Frames) */}
+          <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ transform: "translateZ(30px)" }}>
+            <img 
               src={pack.image} 
               alt={pack.title} 
-              className="w-full h-full object-cover rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] group-hover:shadow-[0_30px_60px_rgba(220,38,38,0.3)] transition-shadow duration-500" 
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
             />
-            {/* Subtle Reflection */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none rounded-xl"></div>
+            {/* Dark Gradient Overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0000] via-[#0a0000]/20 to-transparent"></div>
+            
+            {/* Rating Badge */}
+            <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-white flex items-center gap-1 border border-red-500/30">
+              <Star size={12} className="text-red-500 fill-red-500" /> 4.9
+            </div>
           </div>
           
-          {/* Details */}
-          <div className="text-center flex-grow flex flex-col justify-between">
+          {/* Details (Overlapping image slightly) */}
+          <div className="p-6 -mt-10 relative z-20 text-center flex-grow flex flex-col justify-between" style={{ transform: "translateZ(50px)" }}>
             <div>
-              <div className="text-[10px] font-bold tracking-widest text-red-500 uppercase mb-2">Premium Pack</div>
-              <h3 className="text-2xl font-serif text-white group-hover:text-red-400 transition-colors">{pack.title}</h3>
+              <div className="text-[10px] font-bold tracking-widest text-red-500 uppercase mb-1">Premium Pack</div>
+              <h3 className="text-2xl font-serif text-white group-hover:text-red-400 transition-colors drop-shadow-md">{pack.title}</h3>
             </div>
-            <div className="mt-4 pt-4 border-t border-red-900/20 flex items-center justify-between">
+            
+            <div className="mt-4 pt-4 border-t border-red-900/30 flex items-center justify-between">
               <span className="text-xs text-gray-400 font-medium">10 Wallpapers</span>
               <span className="text-xl font-bold text-white">${pack.price.toFixed(2)}</span>
             </div>
+            
             <div className="mt-4 w-full overflow-hidden h-0 group-hover:h-12 transition-all duration-500 ease-in-out">
-              <button className="w-full bg-red-800 text-white text-xs font-bold tracking-widest uppercase py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-red-700 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+              <button className="w-full bg-gradient-to-r from-red-800 to-red-600 text-white text-xs font-bold tracking-widest uppercase py-3 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
                 <ShoppingBag size={16} /> Buy Now
               </button>
             </div>
@@ -89,7 +93,6 @@ export default function Home() {
         <div className="lightning"></div>
       </div>
 
-      {/* Parallax Floating Elements */}
       <motion.div className="absolute text-4xl text-red-700/50 z-0" style={{ top: '20%', left: '5%', y: yBg }} animate={{ y: [0, -30, 0], rotate: [0, 20, 0] }} transition={{ duration: 6, repeat: Infinity }}>🦇</motion.div>
       <motion.div className="absolute text-6xl text-red-900/40 z-0" style={{ top: '60%', right: '5%', y: yBg }} animate={{ y: [0, 40, 0], rotate: [0, -20, 0] }} transition={{ duration: 8, repeat: Infinity }}>🩸</motion.div>
 

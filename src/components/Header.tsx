@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Skull } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 export default function Header() {
@@ -11,7 +11,7 @@ export default function Header() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 150) {
+    if (latest > previous && latest > 100) {
       setHidden(true);
     } else {
       setHidden(false);
@@ -30,11 +30,12 @@ export default function Header() {
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         
-        <Link href="/" className="group relative flex items-center justify-center">
-          <span className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-700 to-red-900 drop-shadow-[0_0_10px_rgba(255,0,0,0.5)] transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.8)]">
+        {/* Clean, Sharp Logo */}
+        <Link href="/" className="group flex items-center gap-3">
+          <Skull className="w-6 h-6 text-red-600 animate-pulse" />
+          <span className="text-2xl md:text-3xl font-black uppercase tracking-widest text-white drop-shadow-[0_0_15px_rgba(255,0,0,0.8)] group-hover:text-red-500 transition-colors">
             Abdou
           </span>
-          <span className="absolute -bottom-2 w-0 h-[2px] bg-red-500 group-hover:w-full transition-all duration-300 shadow-[0_0_10px_red]"></span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-[#888888] font-medium">
