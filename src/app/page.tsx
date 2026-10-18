@@ -12,14 +12,14 @@ const HALLOWEEN_PACKS = [
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10 overflow-hidden">
+    <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10 overflow-hidden font-sans">
       <MusicPlayer />
       
       {/* Background Elements */}
       <div className="fog"></div>
       <div className="realistic-moon"></div>
 
-      {/* Floating Spooky Elements (Bats & Pumpkins) */}
+      {/* Floating Spooky Elements */}
       <motion.div className="floating-element text-4xl" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-3xl" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-5xl" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🎃</motion.div>
@@ -38,15 +38,9 @@ export default function Home() {
           <div className="relative inline-block mb-4 md:mb-6">
             <div className="spider-container">
               <div className="spider-web"></div>
-              <motion.div 
-                className="spider-body" 
-                animate={{ rotate: [0, 5, -5, 0] }} 
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                🕷️
-              </motion.div>
+              <motion.div className="spider-body" animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>🕷️</motion.div>
             </div>
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter leading-none text-white spooky-glow">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter leading-none text-white spooky-glow pt-8">
               Haunted
             </h1>
           </div>
@@ -84,19 +78,16 @@ export default function Home() {
             >
               <Link href={`/packs/${pack.slug}`} className="w-full">
                 <div className="relative w-full max-w-[320px] mx-auto flex flex-col items-center z-10">
-                  {/* Monitor Screen */}
                   <div className="bg-black rounded-xl p-2 border border-gray-800 shadow-2xl relative z-10 w-full monitor-3d-halloween overflow-hidden">
                     <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                   </div>
-                  {/* Monitor Stand */}
                   <div className="flex flex-col items-center relative z-0 -mt-1">
                     <div className="w-16 h-12 bg-gradient-to-b from-gray-600 to-gray-800"></div>
                     <div className="w-32 h-2 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 rounded-sm shadow-md"></div>
                   </div>
                 </div>
                 
-                {/* Details */}
                 <div className="mt-8 text-center">
                   <h3 className="text-xl font-serif text-white group-hover:text-orange-400 transition-colors">{pack.title}</h3>
                   <div className="flex justify-center items-center gap-1 mt-2">
