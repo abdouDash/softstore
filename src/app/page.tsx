@@ -25,17 +25,17 @@ export default function Home() {
       <div className="blood-moon"></div>
 
       {/* Vampire 3D Floating Elements */}
-      <motion.div className="floating-element text-4xl text-red-600" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
-      <motion.div className="floating-element text-3xl text-red-800" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
-      <motion.div className="floating-element text-5xl text-red-700" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🩸</motion.div>
-      <motion.div className="floating-element text-4xl text-red-900" style={{ bottom: '30%', right: '8%' }} animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>🕸️</motion.div>
+      <motion.div className="floating-element text-4xl text-red-600" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>ðŸ¦‡</motion.div>
+      <motion.div className="floating-element text-3xl text-red-800" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>ðŸ¦‡</motion.div>
+      <motion.div className="floating-element text-5xl text-red-700" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>ðŸ©¸</motion.div>
+      <motion.div className="floating-element text-4xl text-red-900" style={{ bottom: '30%', right: '8%' }} animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>ðŸ•¸ï¸</motion.div>
 
       {/* Hero Section */}
       <section className="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-28 flex flex-col items-center text-center z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="z-10 flex flex-col items-center">
           <div className="border border-red-500/30 bg-red-900/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wide mb-6 md:mb-8 flex items-center gap-2 text-red-400">
             <Activity size={14} className="animate-pulse" />
-            IMMORTAL COLLECTION — 4K ONLY
+            IMMORTAL COLLECTION â€” 4K ONLY
           </div>
           
           <div className="relative inline-block mb-4 md:mb-6">
@@ -92,7 +92,7 @@ export default function Home() {
                   <div className="flex justify-center items-center gap-1 mt-2">
                     {[...Array(5)].map((_, j) => <Star key={j} size={12} className="text-red-500 fill-red-500" />)}
                   </div>
-                  <p className="text-sm text-gray-400 mt-2">10 Wallpapers • ${pack.price.toFixed(2)}</p>
+                  <p className="text-sm text-gray-400 mt-2">10 Wallpapers â€¢ ${pack.price.toFixed(2)}</p>
                 </div>
               </Link>
             </motion.div>
