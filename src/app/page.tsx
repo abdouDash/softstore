@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import MusicPlayer from "@/components/MusicPlayer";
-import { ShieldCheck, Zap, Star, Lock, Activity, Cross } from "lucide-react";
+import { ShieldCheck, Zap, Star, Lock, Activity, Cross, Skull } from "lucide-react";
 
 const VAMPIRE_PACKS = [
   { id: 1, slug: "draculas-castle", title: "Dracula's Castle", price: 12.00, image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" },
@@ -32,7 +32,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-28 flex flex-col items-center text-center z-10">
-        
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="z-10 flex flex-col items-center">
           <div className="border border-red-500/30 bg-red-900/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wide mb-6 md:mb-8 flex items-center gap-2 text-red-400">
             <Activity size={14} className="animate-pulse" />
@@ -102,19 +101,20 @@ export default function Home() {
       </section>
 
       {/* Bloody 3D Text Section */}
-      <section className="relative w-full py-20 flex flex-col items-center justify-center z-10 border-t border-red-900/30">
+      <section className="relative w-full py-24 flex flex-col items-center justify-center z-10 border-t border-red-900/30">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, type: "spring" }}
-          className="flex flex-col items-center gap-6 text-center px-4"
+          className="flex flex-col items-center gap-8 text-center px-4"
         >
-          <div className="text-7xl md:text-8xl filter drop-shadow-[0_0_30px_rgba(255,0,0,0.8)] animate-pulse">
-            🧛‍♂️
+          <div className="relative flex justify-center items-center">
+            <div className="absolute inset-0 bg-red-600 blur-3xl opacity-20 animate-pulse"></div>
+            <Skull className="w-20 h-20 text-red-600 drop-shadow-[0_0_20px_rgba(255,0,0,0.8)]" strokeWidth={1} />
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold blood-text-3d">
-            Here you will spend your money
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-blood text-white bloody-title px-4">
+            Here you will spend<br/>your money
           </h2>
         </motion.div>
       </section>
