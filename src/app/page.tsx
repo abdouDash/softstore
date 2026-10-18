@@ -20,8 +20,8 @@ function PackCard({ pack }: { pack: any }) {
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 400, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 400, damping: 30 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
 
   function handleMouse(event: React.MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -31,48 +31,65 @@ function PackCard({ pack }: { pack: any }) {
 
   return (
     <motion.div className="perspective-[1200px]" onMouseMove={handleMouse} onMouseLeave={() => { x.set(0); y.set(0); }}>
-      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative bg-gradient-to-b from-[#0a0000] to-[#050000] rounded-2xl p-5 border border-red-900/30 flex flex-col h-full explore-card group">
-        <Link href={`/packs/${pack.slug}`} className="flex flex-col h-full">
+      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative bg-gradient-to-b from-[#0a0000] to-[#050000] rounded-2xl p-6 border border-red-900/30 flex flex-col h-full explore-card group overflow-hidden">
+        
+        {/* Red Glow Background */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-red-600/10 blur-[80px] rounded-full group-hover:bg-red-600/30 transition-all duration-700"></div>
+
+        <Link href={`/packs/${pack.slug}`} className="flex flex-col h-full relative z-10">
           
           {/* 3D Gaming Setup Container */}
-          <div className="relative w-full aspect-[4/3] flex flex-col items-center justify-center mb-6" style={{ transform: "translateZ(30px)" }}>
+          <div className="relative w-full aspect-[4/3] flex flex-col items-center justify-end mb-6" style={{ transform: "translateZ(40px)" }}>
             
-            {/* Desk Shadow & Glow */}
-            <div className="absolute bottom-4 w-4/5 h-8 bg-black rounded-[50%] blur-md"></div>
-            <div className="absolute bottom-8 w-3/4 h-20 bg-red-600/20 blur-2xl rounded-full group-hover:bg-red-600/40 transition-all duration-500"></div>
+            {/* Desk Surface */}
+            <div className="absolute bottom-0 w-[110%] h-8 bg-gradient-to-t from-[#050000] via-[#111] to-[#222] rounded-t-xl shadow-[0_-5px_20px_rgba(0,0,0,0.8)] border-t border-gray-700/50"></div>
 
-            {/* Monitor */}
-            <div className="relative w-[90%] aspect-video bg-black rounded-lg p-1.5 border-2 border-gray-800 shadow-2xl z-20 group-hover:border-red-900/50 transition-colors duration-500">
-              <img src={pack.image} alt={pack.title} className="w-full h-full object-cover rounded opacity-90 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none rounded"></div>
-              {/* RGB Monitor Light */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-red-500 blur-[2px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+            {/* Monitor Setup */}
+            <div className="relative w-[85%] aspect-video bg-black rounded-lg p-1.5 border-[3px] border-[#1a1a1a] shadow-[0_15px_30px_rgba(0,0,0,0.9)] z-20 group-hover:border-[#2a2a2a] transition-colors duration-500">
+              <img src={pack.image} alt={pack.title} className="w-full h-full object-cover rounded-md opacity-90 group-hover:opacity-100 transition-opacity" />
+              
+              {/* Screen Reflection */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none rounded-md"></div>
+              
+              {/* RGB Under-glow */}
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2/3 h-2 bg-red-500 blur-md rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
             </div>
 
             {/* Monitor Stand */}
-            <div className="relative z-10 flex flex-col items-center -mt-0.5">
-              <div className="w-10 h-12 bg-gradient-to-b from-gray-700 via-gray-800 to-black border-x border-gray-600"></div>
-              <div className="w-28 h-2 bg-gradient-to-r from-gray-800 via-gray-600 to-gray-800 rounded-t-sm shadow-lg"></div>
+            <div className="relative z-10 flex flex-col items-center -mt-1">
+              <div className="w-12 h-14 bg-gradient-to-b from-[#222] via-[#111] to-black border-x border-gray-700 rounded-t-sm"></div>
+              <div className="w-32 h-2 bg-gradient-to-r from-[#111] via-[#333] to-[#111] rounded-sm shadow-[0_5px_10px_rgba(0,0,0,0.8)]"></div>
             </div>
 
-            {/* RGB Keyboard & Mouse on Desk */}
-            <div className="relative w-[95%] flex justify-between items-end mt-1 z-30 px-2">
+            {/* Keyboard & Mouse (RGB) */}
+            <div className="relative w-[90%] flex justify-between items-end z-30 px-4 -mt-1 mb-2">
+              
               {/* Keyboard */}
-              <div className="w-[65%] h-6 bg-gray-900 rounded-md border-t border-gray-700 relative overflow-hidden flex flex-wrap gap-[2px] p-1 shadow-[0_0_15px_rgba(220,38,38,0.6)] group-hover:shadow-[0_0_25px_rgba(220,38,38,0.9)] transition-shadow">
-                {[...Array(24)].map((_, i) => (
-                  <div key={i} className="w-[8%] h-1.5 bg-gray-800 rounded-[1px] shadow-sm"></div>
-                ))}
-                <div className="absolute bottom-0 w-full h-[2px] bg-red-500 blur-[1px] opacity-70"></div>
+              <div className="relative w-[65%] h-7 bg-[#0a0a0a] rounded-md border-t border-gray-600 shadow-[0_0_15px_rgba(255,0,0,0.3)] p-1 flex flex-col justify-between overflow-hidden">
+                 {/* Keys */}
+                 <div className="flex justify-between w-full px-1">
+                   {[...Array(12)].map((_, i) => <div key={i} className="w-[6%] h-2 bg-[#1a1a1a] rounded-[1px] border-b border-gray-700"></div>)}
+                 </div>
+                 <div className="flex justify-between w-full px-2">
+                   {[...Array(10)].map((_, i) => <div key={i} className="w-[7%] h-2 bg-[#1a1a1a] rounded-[1px] border-b border-gray-700"></div>)}
+                 </div>
+                 {/* Keyboard RGB Glow */}
+                 <div className="absolute bottom-0 left-0 w-full h-[3px] bg-red-600 blur-[2px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
               </div>
+
               {/* Mouse */}
-              <div className="w-8 h-10 bg-gray-900 rounded-full border-t border-gray-700 shadow-[0_0_15px_rgba(220,38,38,0.6)] group-hover:shadow-[0_0_25px_rgba(220,38,38,0.9)] transition-shadow relative overflow-hidden">
-                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-red-500 blur-[1px] opacity-70"></div>
+              <div className="relative w-10 h-14 bg-[#0a0a0a] rounded-[40%_40%_50%_50%] border-t border-gray-600 shadow-[0_0_15px_rgba(255,0,0,0.3)] flex flex-col items-center pt-2 overflow-hidden">
+                 <div className="w-[1px] h-4 bg-gray-700"></div>
+                 <div className="w-2 h-2 rounded-full bg-[#1a1a1a] border border-gray-700 mt-1"></div>
+                 {/* Mouse RGB Glow */}
+                 <div className="absolute bottom-0 left-0 w-full h-[3px] bg-red-600 blur-[2px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
               </div>
+
             </div>
             
             {/* Rating Badge */}
-            <div className="absolute top-0 right-0 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold text-white flex items-center gap-1 border border-red-500/30 z-40">
-              <Star size={10} className="text-red-500 fill-red-500" /> 4.9
+            <div className="absolute top-0 right-2 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-white flex items-center gap-1 border border-red-500/30 z-40">
+              <Star size={12} className="text-red-500 fill-red-500" /> 4.9
             </div>
           </div>
           
