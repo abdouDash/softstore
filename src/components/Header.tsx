@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Skull } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 export default function Header() {
@@ -19,15 +19,20 @@ export default function Header() {
     <motion.header 
       variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
       animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className="w-full bg-[#050000]/80 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20"
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         
-        {/* Clean Logo: Skull + AbdouPxl */}
-        <Link href="/" className="group flex items-center gap-3">
-          <Skull className="w-7 h-7 text-red-600 animate-pulse" />
-          <span className="text-2xl md:text-3xl font-serif font-bold tracking-widest text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.5)] group-hover:text-red-500 transition-colors">
+        <Link href="/" className="group flex items-baseline gap-2">
+          <motion.span 
+            animate={{ color: ["#ff0000", "#ff5555", "#ff0000"], textShadow: ["0 0 10px #ff0000", "0 0 20px #ff0000", "0 0 10px #ff0000"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="text-3xl md:text-4xl font-black uppercase leading-none"
+          >
+            A
+          </motion.span>
+          <span className="text-base md:text-lg font-serif tracking-[0.1em] text-white group-hover:text-red-400 transition-colors font-medium">
             AbdouPxl
           </span>
         </Link>
