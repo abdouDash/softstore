@@ -20,13 +20,13 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error("Vercel API crashed (returned HTML). Check Logs.");
+        throw new Error("Server returned HTML. Check Vercel logs for crash.");
       }
       
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("⚠️ Error: " + (data.error || "Unknown error occurred"));
+        alert("⚠️ Error: " + (data.error || "Unknown error"));
         setLoading(false);
       }
     } catch (err: any) {
