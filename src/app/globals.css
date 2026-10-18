@@ -16,7 +16,6 @@ body {
   overflow-x: hidden;
 }
 
-/* الخلفية السينمائية (Aurora + Grid) */
 .aurora-bg {
   background: linear-gradient(270deg, #050505, #1a0b2e, #0b1a2e, #050505);
   background-size: 600% 600%;
@@ -42,7 +41,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* تأثير البرق/التوهج */
 .lightning-glow {
   position: absolute;
   top: 50%;
@@ -62,7 +60,6 @@ body {
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 }
 
-/* زر الشراء اللي كيبرق */
 .btn-glow {
   position: relative;
   background: linear-gradient(to right, #ff7e5f, #feb47b);
