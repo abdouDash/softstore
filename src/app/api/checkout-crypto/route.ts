@@ -5,9 +5,7 @@ export async function POST(req: Request) {
     const { price, title, slug } = await req.json();
     const apiKey = process.env.NOWPAYMENTS_API_KEY;
 
-    if (!apiKey) {
-      return NextResponse.json({ error: "Missing NOWPAYMENTS_API_KEY in Vercel" }, { status: 500 });
-    }
+    if (!apiKey) return NextResponse.json({ error: "Missing NOWPAYMENTS_API_KEY" }, { status: 500 });
 
     const response = await fetch("https://api.nowpayments.io/v1/invoice", {
       method: "POST",
@@ -23,13 +21,16 @@ export async function POST(req: Request) {
         order_description: `Pack: ${title}`,
         ipn_callback_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/webhook-crypto`,
         success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
-        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/packs/${slug}`
+        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/packs/${slug}`,
+        is_fixed_rate: true,
+        is_fee_paid_by_user: false
       })
     });
 
     const data = await response.json();
-
+    
     if (!response.ok) {
+      console.error("NOWPayments Error:", data);
       return NextResponse.json({ error: data.message || "NOWPayments API Error" }, { status: 500 });
     }
 
