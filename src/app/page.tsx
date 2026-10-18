@@ -24,7 +24,7 @@ export default function Home() {
       <div className="fog"></div>
       <div className="blood-moon"></div>
 
-      {/* Vampire 3D Floating Elements (Bats & Blood Drops) */}
+      {/* Vampire 3D Floating Elements */}
       <motion.div className="floating-element text-4xl text-red-600" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-3xl text-red-800" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-5xl text-red-700" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🩸</motion.div>
@@ -100,6 +100,25 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Bloody 3D Text Section */}
+      <section className="relative w-full py-20 flex flex-col items-center justify-center z-10 border-t border-red-900/30">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, type: "spring" }}
+          className="flex flex-col items-center gap-6 text-center px-4"
+        >
+          <div className="text-7xl md:text-8xl filter drop-shadow-[0_0_30px_rgba(255,0,0,0.8)] animate-pulse">
+            🧛‍♂️
+          </div>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold blood-text-3d">
+            Here you will spend your money
+          </h2>
+        </motion.div>
+      </section>
+
     </div>
   );
 }
