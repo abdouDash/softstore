@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import MusicPlayer from "@/components/MusicPlayer";
-import { ShieldCheck, Zap, Star, Lock, Ghost, Moon, Skull } from "lucide-react";
+import { ShieldCheck, Zap, Star, Lock, Ghost, Skull } from "lucide-react";
 
 const HALLOWEEN_PACKS = [
   { id: 1, slug: "haunted-castle", title: "Haunted Castle", price: 12.00, image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=800&auto=format&fit=crop" },
@@ -12,12 +12,18 @@ const HALLOWEEN_PACKS = [
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10">
+    <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10 overflow-hidden">
       <MusicPlayer />
       
       {/* Background Elements */}
       <div className="fog"></div>
-      <div className="moon"></div>
+      <div className="realistic-moon"></div>
+
+      {/* Floating Spooky Elements (Bats & Pumpkins) */}
+      <motion.div className="floating-element text-4xl" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
+      <motion.div className="floating-element text-3xl" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
+      <motion.div className="floating-element text-5xl" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🎃</motion.div>
+      <motion.div className="floating-element text-4xl" style={{ bottom: '30%', right: '8%' }} animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>🕸️</motion.div>
 
       {/* Hero Section */}
       <section className="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-28 flex flex-col items-center text-center z-10">
@@ -28,8 +34,24 @@ export default function Home() {
             SPOOKY SEASON DROP — 4K ONLY
           </div>
           
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter mb-4 md:mb-6 leading-none text-white spooky-glow">
-            Haunted<br/>Screens.
+          {/* Haunted Title with Spider */}
+          <div className="relative inline-block mb-4 md:mb-6">
+            <div className="spider-container">
+              <div className="spider-web"></div>
+              <motion.div 
+                className="spider-body" 
+                animate={{ rotate: [0, 5, -5, 0] }} 
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                🕷️
+              </motion.div>
+            </div>
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter leading-none text-white spooky-glow">
+              Haunted
+            </h1>
+          </div>
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter mb-4 md:mb-6 leading-none text-white">
+            Screens.
           </h1>
           
           <p className="text-[#aaa] max-w-md mx-auto mb-8 md:mb-10 text-base md:text-lg px-4">
