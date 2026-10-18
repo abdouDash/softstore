@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ShieldCheck, Download, Zap, Flame } from "lucide-react";
 import CheckoutButton from "./CheckoutButton";
 
+export const instant = false;
+
 export default async function PackPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;

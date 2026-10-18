@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/packs/${slug}`,
-    });
+    } as any); // We cast to any to avoid strict TypeScript issues with the Stripe API version
 
     return NextResponse.json({ url: session.url });
   } catch (err: any) {
