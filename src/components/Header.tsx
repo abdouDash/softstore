@@ -21,8 +21,6 @@ export default function Header() {
       `}</style>
 
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        
-        {/* Logo with Animated A */}
         <Link href="/" className="text-xl font-bold tracking-tight flex items-center gap-3 group">
           <div className="relative flex items-center justify-center w-9 h-9">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full blur-md opacity-40 group-hover:opacity-80 transition-opacity"></div>
@@ -32,14 +30,12 @@ export default function Header() {
           <BadgeCheck className="w-5 h-5 text-blue-500" fill="#050505" />
         </Link>
 
-        {/* Center Links */}
         <div className="hidden md:flex items-center gap-8 text-sm text-[#888888] font-medium">
           <Link href="#" className="hover:text-white transition-colors">Gallery</Link>
           <Link href="#" className="hover:text-white transition-colors">License</Link>
           <Link href="#" className="hover:text-white transition-colors">Support</Link>
         </div>
 
-        {/* Right Nav */}
         <nav className="flex items-center gap-8 text-sm text-[#888888] font-medium">
           <Link href="#" className="hover:text-white transition-colors">desktop</Link>
           <Link href="#" className="hover:text-white transition-colors">iPhone</Link>

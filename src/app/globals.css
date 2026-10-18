@@ -3,9 +3,7 @@
 
 :root {
   --bg: #050505;
-  --card-bg: #111111;
   --text: #FFFFFF;
-  --muted: #888888;
 }
 
 body {
@@ -61,7 +59,6 @@ body {
 }
 
 .btn-glow {
-  position: relative;
   background: linear-gradient(to right, #ff7e5f, #feb47b);
   box-shadow: 0 0 20px rgba(255, 126, 95, 0.4);
   transition: all 0.3s ease;
