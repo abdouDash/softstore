@@ -7,19 +7,18 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="w-full bg-[#050000]/90 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20">
+    <header className="w-full bg-[#050000]/80 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         
         <Link href="/" className="text-xl md:text-2xl font-bold tracking-widest uppercase flex items-center gap-3 text-white">
-          <Skull className="w-6 h-6 text-red-600" />
+          <Skull className="w-6 h-6 text-red-600 animate-pulse" />
           Abdou
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-[#888888] font-medium">
+          <Link href="/" className="hover:text-red-500 transition-colors">Home</Link>
           <Link href="/collections" className="hover:text-red-500 transition-colors">Collections</Link>
-          <Link href="/collections" className="hover:text-red-500 transition-colors">Moods</Link>
-          <Link href="#" className="hover:text-red-500 transition-colors">Demos</Link>
-          <Link href="#" className="hover:text-red-500 transition-colors">About</Link>
+          <Link href="/contact" className="hover:text-red-500 transition-colors">Contact Us</Link>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
@@ -35,9 +34,9 @@ export default function Header() {
 
       {isOpen && (
         <div className="md:hidden bg-[#0a0000] border-b border-red-900/30 absolute w-full left-0 top-20 flex flex-col p-6 gap-4 text-center">
+          <Link href="/" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Home</Link>
           <Link href="/collections" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Collections</Link>
-          <Link href="/collections" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Moods</Link>
-          <Link href="#" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Demos</Link>
+          <Link href="/contact" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Contact Us</Link>
           <Link href="/collections" className="bg-red-700 text-white px-6 py-3 rounded-full font-semibold mt-2 tracking-widest uppercase text-sm">
             Get Access
           </Link>
