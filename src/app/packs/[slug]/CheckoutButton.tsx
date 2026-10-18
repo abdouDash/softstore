@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Skull } from "lucide-react";
 
 export default function CheckoutButton({ price, title, slug }: { price: number, title: string, slug: string }) {
   const [loading, setLoading] = useState(false);
@@ -39,9 +39,9 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
     <button 
       onClick={handleCheckout}
       disabled={loading}
-      className="w-full py-4 px-8 text-black font-semibold text-lg rounded-full bg-gradient-to-r from-white via-purple-50 to-purple-100 hover:shadow-[0_0_30px_rgba(200,180,255,0.6)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70"
+      className="w-full py-4 px-8 text-white font-bold text-lg rounded-full bg-gradient-to-r from-orange-600 to-red-700 hover:shadow-[0_0_30px_rgba(234,88,12,0.8)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 border border-orange-500/50"
     >
-      {loading ? <Loader2 className="animate-spin" /> : `get this pack — $${price.toFixed(2)}`}
+      {loading ? <Loader2 className="animate-spin" /> : <><Skull size={20} /> get this pack — ${price.toFixed(2)}</>}
     </button>
   );
 }

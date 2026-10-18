@@ -8,6 +8,12 @@ const HALLOWEEN_PACKS = [
   { id: 1, slug: "haunted-castle", title: "Haunted Castle", price: 12.00, image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=800&auto=format&fit=crop" },
   { id: 2, slug: "pumpkin-night", title: "Pumpkin Night", price: 10.00, image: "https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?q=80&w=800&auto=format&fit=crop" },
   { id: 3, slug: "dark-forest", title: "Dark Forest", price: 15.00, image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" },
+  { id: 4, slug: "spooky-skull", title: "Spooky Skull", price: 9.00, image: "https://images.unsplash.com/photo-1509909756405-be0199881695?q=80&w=800&auto=format&fit=crop" },
+  { id: 5, slug: "witch-house", title: "Witch House", price: 11.00, image: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=800&auto=format&fit=crop" },
+  { id: 6, slug: "graveyard-mist", title: "Graveyard Mist", price: 14.00, image: "https://images.unsplash.com/photo-1478719059408-592965723cbc?q=80&w=800&auto=format&fit=crop" },
+  { id: 7, slug: "ghostly-figures", title: "Ghostly Figures", price: 13.00, image: "https://images.unsplash.com/photo-1505635552518-3448ff116af3?q=80&w=800&auto=format&fit=crop" },
+  { id: 8, slug: "creepy-clown", title: "Creepy Clown", price: 8.00, image: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=800&auto=format&fit=crop" },
+  { id: 9, slug: "blood-moon", title: "Blood Moon", price: 16.00, image: "https://images.unsplash.com/photo-1532974297617-c0f05fe48bff?q=80&w=800&auto=format&fit=crop" },
 ];
 
 export default function Home() {
@@ -15,26 +21,21 @@ export default function Home() {
     <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10 overflow-hidden font-sans">
       <MusicPlayer />
       
-      {/* Background Elements */}
       <div className="fog"></div>
       <div className="realistic-moon"></div>
 
-      {/* Floating Spooky Elements */}
       <motion.div className="floating-element text-4xl" style={{ top: '15%', left: '10%' }} animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-3xl" style={{ top: '25%', right: '20%' }} animate={{ y: [0, -30, 0], x: [0, -15, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>🦇</motion.div>
       <motion.div className="floating-element text-5xl" style={{ bottom: '20%', left: '5%' }} animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🎃</motion.div>
       <motion.div className="floating-element text-4xl" style={{ bottom: '30%', right: '8%' }} animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>🕸️</motion.div>
 
-      {/* Hero Section */}
       <section className="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-28 flex flex-col items-center text-center z-10">
-        
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="z-10 flex flex-col items-center">
           <div className="border border-orange-500/30 bg-orange-500/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wide mb-6 md:mb-8 flex items-center gap-2 text-orange-400">
             <Ghost size={14} className="animate-bounce" />
             SPOOKY SEASON DROP — 4K ONLY
           </div>
           
-          {/* Haunted Title with Spider */}
           <div className="relative inline-block mb-4 md:mb-6">
             <div className="spider-container">
               <div className="spider-web"></div>
@@ -64,16 +65,15 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3D Floating Screens Section */}
       <section id="packs" className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 lg:gap-12">
           {HALLOWEEN_PACKS.map((pack, i) => (
             <motion.div 
               key={pack.id} 
               initial={{ opacity: 0, y: 100 }} 
               whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true, margin: "-50px" }} 
-              transition={{ duration: 0.8, delay: i * 0.2 }} 
+              transition={{ duration: 0.8, delay: (i % 3) * 0.2 }} 
               className="group cursor-pointer flex flex-col items-center"
             >
               <Link href={`/packs/${pack.slug}`} className="w-full">
