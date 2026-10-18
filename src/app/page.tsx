@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import MusicPlayer from "@/components/MusicPlayer";
-import { Zap, ShieldCheck, Download } from "lucide-react";
+import { ShieldCheck, Zap, Star, Lock, CheckCircle2 } from "lucide-react";
 
 const MOCK_PACKS = [
   { id: 1, slug: "hustle", title: "hustle", price: 7.00, image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },
@@ -16,7 +16,7 @@ export default function Home() {
       <MusicPlayer />
       
       {/* Hero Section */}
-      <section className="relative max-w-7xl mx-auto px-6 py-32 flex flex-col items-center text-center overflow-hidden">
+      <section className="relative max-w-7xl mx-auto px-6 py-28 flex flex-col items-center text-center overflow-hidden">
         <div className="lightning-glow"></div>
         
         <motion.div 
@@ -38,11 +38,11 @@ export default function Home() {
             curated 4K wallpapers designed to transform your iPhone & desktop into something beautiful.
           </p>
 
-          {/* شارات الثقة (Trust Badges) */}
-          <div className="flex items-center gap-6 text-sm text-[#888888] mb-10">
-            <span className="flex items-center gap-1.5"><Download size={16} className="text-white"/> Instant Download</span>
-            <span className="flex items-center gap-1.5"><ShieldCheck size={16} className="text-white"/> Secure Payment</span>
-            <span className="flex items-center gap-1.5"><Zap size={16} className="text-white"/> 4K Quality</span>
+          {/* Trust Badges in Hero */}
+          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-[#888888] mb-10">
+            <span className="flex items-center gap-1.5"><ShieldCheck size={16} className="text-green-500"/> 100% Secure Checkout</span>
+            <span className="flex items-center gap-1.5"><Zap size={16} className="text-yellow-500"/> Instant Delivery</span>
+            <span className="flex items-center gap-1.5"><Lock size={16} className="text-blue-500"/> Crypto Powered</span>
           </div>
           
           <Link href="#packs" className="bg-white text-black px-8 py-3 rounded-full font-medium hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
@@ -65,7 +65,9 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
         <div className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div>
-            <h2 className="text-xl font-semibold mb-1 text-white">build your own bundle</h2>
+            <h2 className="text-xl font-semibold mb-1 text-white flex items-center gap-2">
+              build your own bundle <Star size={16} className="text-yellow-500 fill-yellow-500" />
+            </h2>
             <p className="text-sm text-[#888888]">pick any packs you like and save up to 35%</p>
           </div>
           <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -75,15 +77,6 @@ export default function Home() {
             <button className="btn-glow px-6 py-2 rounded-full text-black font-semibold text-sm">start picking</button>
           </div>
         </div>
-      </section>
-
-      {/* Filters */}
-      <section className="max-w-7xl mx-auto px-6 py-8 flex justify-center border-b border-white/10 gap-6 overflow-x-auto relative z-10">
-        {["all 81", "mindset 16", "luxury 24", "cars 8", "cinema 13", "icons 7", "art 13"].map((cat, i) => (
-          <button key={cat} className={`text-sm whitespace-nowrap pb-4 ${i === 0 ? 'text-white border-b-2 border-white font-medium' : 'text-[#888888] hover:text-white transition-colors'}`}>
-            {cat}
-          </button>
-        ))}
       </section>
 
       {/* Grid Section */}
@@ -104,30 +97,45 @@ export default function Home() {
                   
                   {/* 3D Monitor Mockup */}
                   <div className="monitor-3d relative w-full max-w-[260px] flex flex-col items-center z-10">
-                    {/* Screen */}
                     <div className="bg-black rounded-lg p-1 border border-gray-600 shadow-2xl relative z-10 w-full">
                       <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-90" />
                     </div>
-                    {/* Sleek Silver Stand */}
                     <div className="flex flex-col items-center relative z-0">
                       <div className="w-12 h-10 bg-gradient-to-b from-gray-400 to-gray-500"></div>
                       <div className="w-24 h-1.5 bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 rounded-sm shadow-md"></div>
                     </div>
                   </div>
                   
-                  {i === 0 && (
-                    <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                      Latest Drop
+                  {/* Badges */}
+                  <div className="absolute top-6 left-6 flex flex-col gap-2">
+                    {i === 0 && (
+                      <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Latest Drop
+                      </div>
+                    )}
+                    <div className="bg-green-500/10 backdrop-blur-md border border-green-500/20 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                      <CheckCircle2 size={10} /> Best Seller
                     </div>
-                  )}
+                  </div>
                 </div>
                 
+                {/* Card Details with Stars */}
                 <div className="flex justify-between items-start px-2">
                   <div>
-                    <h3 className="text-lg font-medium group-hover:text-white transition-colors">{pack.title}</h3>
-                    <p className="text-sm text-[#888888]">10 wallpapers</p>
+                    <h3 className="text-lg font-medium group-hover:text-white transition-colors flex items-center gap-2">
+                      {pack.title}
+                    </h3>
+                    <div className="flex items-center gap-1 mt-1">
+                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                      <span className="text-xs text-[#888888] ml-1">(124)</span>
+                    </div>
+                    <p className="text-sm text-[#888888] mt-1">10 wallpapers</p>
                   </div>
-                  <p className="text-sm text-white font-medium">${pack.price.toFixed(2)}</p>
+                  <p className="text-sm text-white font-medium bg-white/5 px-2 py-1 rounded-md">${pack.price.toFixed(2)}</p>
                 </div>
               </Link>
             </motion.div>

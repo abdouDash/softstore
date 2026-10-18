@@ -1,10 +1,10 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "SoftStore | Premium 4K Wallpapers",
+  title: "AbdouPxl | Premium 4K Wallpapers",
   description: "Curated aesthetic wallpapers for your desktop.",
 };
 
