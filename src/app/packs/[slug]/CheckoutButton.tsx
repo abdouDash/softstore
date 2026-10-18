@@ -8,12 +8,20 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/checkout", {
+      const res = await fetch("/api/checkout-crypto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price, title, slug }),
       });
-      const data = await res.json();
+      
+      const text = await res.text();
+      let data;
+      
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error("Vercel API crashed (returned HTML). Check Logs.");
+      }
       
       if (data.url) {
         window.location.href = data.url;
@@ -22,7 +30,7 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
         setLoading(false);
       }
     } catch (err: any) {
-      alert("⚠️ Network Error: " + err.message);
+      alert("⚠️ " + err.message);
       setLoading(false);
     }
   };
@@ -33,7 +41,7 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
       disabled={loading}
       className="btn-glow w-full py-4 px-8 text-black font-bold text-lg rounded-xl flex items-center justify-center gap-2 disabled:opacity-70"
     >
-      {loading ? <Loader2 className="animate-spin" /> : "Buy Now - Instant Access"}
+      {loading ? <Loader2 className="animate-spin" /> : "Buy Now - Pay with Crypto"}
     </button>
   );
 }

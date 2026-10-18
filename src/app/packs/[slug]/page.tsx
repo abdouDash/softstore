@@ -55,7 +55,7 @@ export default async function PackPage({ params }: { params: Promise<{ slug: str
 
             <CheckoutButton price={pack.price} title={pack.title} slug={slug} />
             
-            <p className="text-center text-xs text-[#888888] mt-4">Secure checkout powered by Stripe</p>
+            <p className="text-center text-xs text-[#888888] mt-4">Secure checkout powered by Crypto</p>
           </div>
         </div>
       </div>
