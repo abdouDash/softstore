@@ -20,7 +20,7 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error("Server returned HTML. Check Vercel logs for crash.");
+        throw new Error("Server returned HTML instead of JSON.");
       }
       
       if (data.url) {
@@ -39,9 +39,9 @@ export default function CheckoutButton({ price, title, slug }: { price: number, 
     <button 
       onClick={handleCheckout}
       disabled={loading}
-      className="btn-glow w-full py-4 px-8 text-black font-bold text-lg rounded-xl flex items-center justify-center gap-2 disabled:opacity-70"
+      className="w-full py-4 px-8 text-black font-semibold text-lg rounded-full bg-gradient-to-r from-white via-purple-50 to-purple-100 hover:shadow-[0_0_30px_rgba(200,180,255,0.6)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70"
     >
-      {loading ? <Loader2 className="animate-spin" /> : "Buy Now - Pay with Crypto"}
+      {loading ? <Loader2 className="animate-spin" /> : `get this pack — $${price.toFixed(2)}`}
     </button>
   );
 }
