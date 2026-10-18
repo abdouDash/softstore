@@ -6,11 +6,13 @@ export default function Header() {
     <header className="w-full bg-[#050505]/80 backdrop-blur-md fixed top-0 z-50 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
-        {/* Logo with Verified Badge */}
+        {/* Logo with GIF */}
         <Link href="/" className="text-xl font-bold tracking-tight flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-orange-500 to-pink-500 text-white flex items-center justify-center text-sm font-bold shadow-lg shadow-orange-500/20">
-            A
-          </div>
+          <img 
+            src="/logo.gif" 
+            alt="AbdouPxl Logo" 
+            className="w-8 h-8 rounded-full object-cover shadow-lg shadow-orange-500/20" 
+          />
           AbdouPxl
           <BadgeCheck className="w-5 h-5 text-blue-500" fill="#050505" />
         </Link>
