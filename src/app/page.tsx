@@ -1,154 +1,86 @@
 "use client";
 import Link from "next/link";
-import * as motion from "motion/react-client";
+import { motion } from "framer-motion";
 import MusicPlayer from "@/components/MusicPlayer";
-import { ShieldCheck, Zap, Star, Lock, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Zap, Star, Lock, Ghost, Moon, Skull } from "lucide-react";
 
-const MOCK_PACKS = [
-  { id: 1, slug: "hustle", title: "hustle", price: 7.00, image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },
-  { id: 2, slug: "delusional", title: "delusional", price: 8.00, image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop" },
-  { id: 3, slug: "abstract", title: "abstract", price: 7.00, image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=800&auto=format&fit=crop" },
+const HALLOWEEN_PACKS = [
+  { id: 1, slug: "haunted-castle", title: "Haunted Castle", price: 12.00, image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=800&auto=format&fit=crop" },
+  { id: 2, slug: "pumpkin-night", title: "Pumpkin Night", price: 10.00, image: "https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?q=80&w=800&auto=format&fit=crop" },
+  { id: 3, slug: "dark-forest", title: "Dark Forest", price: 15.00, image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" },
 ];
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen pt-20 aurora-bg relative z-10 overflow-hidden" style={{ perspective: "1200px" }}>
+    <div className="w-full min-h-screen pt-16 md:pt-20 halloween-bg relative z-10">
       <MusicPlayer />
       
-      {/* Cinematic Intro Overlay */}
-      <motion.div 
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        transition={{ duration: 1.5, ease: "easeInOut", delay: 1 }}
-        className="fixed inset-0 z-50 bg-[#050505] pointer-events-none flex items-center justify-center"
-      >
-        <motion.div 
-          initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-          animate={{ scale: 1.2, opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="text-white text-4xl font-black tracking-widest"
-        >
-          AbdouPxl
-        </motion.div>
-      </motion.div>
+      {/* Background Elements */}
+      <div className="fog"></div>
+      <div className="moon"></div>
 
-      <section className="relative max-w-7xl mx-auto px-6 py-28 flex flex-col items-center text-center overflow-hidden">
-        <div className="lightning-glow"></div>
+      {/* Hero Section */}
+      <section className="relative max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-28 flex flex-col items-center text-center z-10">
         
-        <motion.div 
-          initial={{ opacity: 0, y: 100, scale: 0.8, rotateX: 20, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 1.2 }}
-          className="z-10 flex flex-col items-center"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          <div className="border border-white/20 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wide mb-8 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-            LATEST DROP — BELIEVE
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="z-10 flex flex-col items-center">
+          <div className="border border-orange-500/30 bg-orange-500/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wide mb-6 md:mb-8 flex items-center gap-2 text-orange-400">
+            <Ghost size={14} className="animate-bounce" />
+            SPOOKY SEASON DROP — 4K ONLY
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-medium tracking-tighter mb-6 leading-none text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-            screens,<br/>elevated.
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif tracking-tighter mb-4 md:mb-6 leading-none text-white spooky-glow">
+            Haunted<br/>Screens.
           </h1>
           
-          <p className="text-[#aaa] max-w-md mx-auto mb-8 text-lg">
-            curated 4K wallpapers designed to transform your iPhone & desktop into something beautiful.
+          <p className="text-[#aaa] max-w-md mx-auto mb-8 md:mb-10 text-base md:text-lg px-4">
+            Transform your desktop into a dark masterpiece with our curated 4K Halloween collection.
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-[#888888] mb-10">
-            <span className="flex items-center gap-1.5"><ShieldCheck size={16} className="text-green-500"/> 100% Secure Checkout</span>
-            <span className="flex items-center gap-1.5"><Zap size={16} className="text-yellow-500"/> Instant Delivery</span>
-            <span className="flex items-center gap-1.5"><Lock size={16} className="text-blue-500"/> Crypto Powered</span>
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-xs md:text-sm text-[#888888] mb-8 md:mb-12">
+            <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-green-500"/> Secure Checkout</span>
+            <span className="flex items-center gap-1.5"><Zap size={14} className="text-yellow-500"/> Instant Delivery</span>
+            <span className="flex items-center gap-1.5"><Lock size={14} className="text-orange-500"/> Crypto Powered</span>
           </div>
           
-          <Link href="#packs" className="bg-white text-black px-8 py-3 rounded-full font-medium hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            browse collection →
+          <Link href="#packs" className="bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-[0_0_30px_rgba(234,88,12,0.5)] flex items-center gap-2">
+            <Skull size={18} /> Browse Collection
           </Link>
         </motion.div>
-
-        {/* 3D Floating Hero Image */}
-        <motion.div 
-          initial={{ opacity: 0, y: 200, rotateX: 30, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 1.5 }}
-          style={{ transformStyle: "preserve-3d" }}
-          className="mt-20 relative w-full max-w-4xl aspect-video bg-[#111] rounded-t-3xl border border-white/10 overflow-hidden shadow-[0_0_80px_rgba(255,120,80,0.3)]"
-        >
-          <motion.img 
-            animate={{ scale: [1, 1.05, 1] }} 
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            src={MOCK_PACKS[0].image} 
-            alt="Hero" 
-            className="w-full h-full object-cover opacity-90" 
-          />
-        </motion.div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
-        <div className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div>
-            <h2 className="text-xl font-semibold mb-1 text-white flex items-center gap-2">build your own bundle <Star size={16} className="text-yellow-500 fill-yellow-500" /></h2>
-            <p className="text-sm text-[#888888]">pick any packs you like and save up to 35%</p>
-          </div>
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <button className="px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 text-white">3 packs <span className="text-[#888888]">$18</span></button>
-            <button className="px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 text-white">5 packs <span className="text-[#888888]">$29</span></button>
-            <button className="px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 text-white">10 packs <span className="text-[#888888]">$49</span></button>
-            <button className="btn-glow px-6 py-2 rounded-full text-black font-semibold text-sm">start picking</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="packs" className="max-w-7xl mx-auto px-6 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {MOCK_PACKS.map((pack, i) => (
+      {/* 3D Floating Screens Section */}
+      <section id="packs" className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-12">
+          {HALLOWEEN_PACKS.map((pack, i) => (
             <motion.div 
               key={pack.id} 
-              initial={{ opacity: 0, y: 50, scale: 0.9 }} 
-              whileInView={{ opacity: 1, y: 0, scale: 1 }} 
-              viewport={{ once: true, margin: "-100px" }} 
-              transition={{ duration: 0.8, delay: i * 0.2, ease: "easeOut" }} 
-              className="group cursor-pointer"
+              initial={{ opacity: 0, y: 100 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true, margin: "-50px" }} 
+              transition={{ duration: 0.8, delay: i * 0.2 }} 
+              className="group cursor-pointer flex flex-col items-center"
             >
-              <Link href={`/packs/${pack.slug}`}>
-                <div className="relative aspect-[4/3] bg-[#111111]/60 backdrop-blur-sm rounded-3xl p-8 mb-4 flex flex-col items-center justify-center overflow-hidden border border-white/10 transition-colors hover:border-white/20" style={{ perspective: "1000px" }}>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"></div>
-                  
-                  {/* 3D Monitor Mockup */}
-                  <motion.div 
-                    whileHover={{ rotateY: 15, rotateX: 5, scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="relative w-full max-w-[260px] flex flex-col items-center z-10"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    <div className="bg-black rounded-lg p-1 border border-gray-600 shadow-2xl relative z-10 w-full">
-                      <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-90" />
-                    </div>
-                    <div className="flex flex-col items-center relative z-0">
-                      <div className="w-12 h-10 bg-gradient-to-b from-gray-400 to-gray-500"></div>
-                      <div className="w-24 h-1.5 bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 rounded-sm shadow-md"></div>
-                    </div>
-                  </motion.div>
-                  
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    {i === 0 && <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Latest Drop</div>}
-                    <div className="bg-green-500/10 backdrop-blur-md border border-green-500/20 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1"><CheckCircle2 size={10} /> Best Seller</div>
+              <Link href={`/packs/${pack.slug}`} className="w-full">
+                <div className="relative w-full max-w-[320px] mx-auto flex flex-col items-center z-10">
+                  {/* Monitor Screen */}
+                  <div className="bg-black rounded-xl p-2 border border-gray-800 shadow-2xl relative z-10 w-full monitor-3d-halloween overflow-hidden">
+                    <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                  </div>
+                  {/* Monitor Stand */}
+                  <div className="flex flex-col items-center relative z-0 -mt-1">
+                    <div className="w-16 h-12 bg-gradient-to-b from-gray-600 to-gray-800"></div>
+                    <div className="w-32 h-2 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 rounded-sm shadow-md"></div>
                   </div>
                 </div>
-                <div className="flex justify-between items-start px-2">
-                  <div>
-                    <h3 className="text-lg font-medium group-hover:text-white transition-colors flex items-center gap-2">{pack.title}</h3>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                      <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                      <span className="text-xs text-[#888888] ml-1">(124)</span>
-                    </div>
-                    <p className="text-sm text-[#888888] mt-1">10 wallpapers</p>
+                
+                {/* Details */}
+                <div className="mt-8 text-center">
+                  <h3 className="text-xl font-serif text-white group-hover:text-orange-400 transition-colors">{pack.title}</h3>
+                  <div className="flex justify-center items-center gap-1 mt-2">
+                    {[...Array(5)].map((_, j) => <Star key={j} size={12} className="text-orange-500 fill-orange-500" />)}
                   </div>
-                  <p className="text-sm text-white font-medium bg-white/5 px-2 py-1 rounded-md">${pack.price.toFixed(2)}</p>
+                  <p className="text-sm text-gray-400 mt-2">10 Wallpapers • ${pack.price.toFixed(2)}</p>
                 </div>
               </Link>
             </motion.div>
