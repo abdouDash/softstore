@@ -11,11 +11,8 @@ export default function Header() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 100) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
+    if (latest > previous && latest > 100) setHidden(true);
+    else setHidden(false);
   });
 
   return (
@@ -25,27 +22,21 @@ export default function Header() {
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className="w-full bg-[#050000]/80 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20"
     >
-      <style>{`
-        @keyframes colorShift {
-          0% { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; transform: rotate(0deg) scale(1); }
-          33% { color: #ff7e5f; text-shadow: 0 0 10px #ff7e5f, 0 0 20px #ff7e5f; transform: rotate(5deg) scale(1.1); }
-          66% { color: #8b0000; text-shadow: 0 0 10px #8b0000, 0 0 20px #8b0000; transform: rotate(-5deg) scale(1.1); }
-          100% { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; transform: rotate(0deg) scale(1); }
-        }
-        .animated-a {
-          animation: colorShift 4s infinite linear;
-          display: inline-block;
-        }
-      `}</style>
-
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         
-        {/* Animated A Logo and Ornate Abdou Text */}
+        {/* Clean Logo with Animated A (No Circle) */}
         <Link href="/" className="group flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-red-900 to-black border border-red-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(255,0,0,0.4)]">
-            <span className="animated-a text-2xl font-black text-white">A</span>
-          </div>
-          <span className="text-xl md:text-2xl font-serif italic text-white tracking-widest drop-shadow-md group-hover:text-red-400 transition-colors">
+          <motion.span 
+            animate={{ 
+              color: ["#ff0000", "#800000", "#ff0000"],
+              textShadow: ["0 0 10px #ff0000", "0 0 20px #800000", "0 0 10px #ff0000"]
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="text-3xl md:text-4xl font-black uppercase"
+          >
+            A
+          </motion.span>
+          <span className="text-xl md:text-2xl font-serif tracking-[0.2em] text-white uppercase group-hover:text-red-500 transition-colors">
             Abdou
           </span>
         </Link>
@@ -57,7 +48,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/collections" className="bg-red-700 hover:bg-red-600 text-white px-6 py-2.5 rounded-full text-xs tracking-widest uppercase font-semibold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]">
+          <Link href="/collections" className="bg-red-700 hover:bg-red-600 text-white px-6 py-2.5 rounded-full text-xs tracking-widest uppercase font-semibold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] hover:shadow-[0_0_25px_rgba(220,38,38,0.8)]">
             Get Access
           </Link>
         </div>
@@ -69,9 +60,9 @@ export default function Header() {
 
       {isOpen && (
         <div className="md:hidden bg-[#0a0000] border-b border-red-900/30 absolute w-full left-0 top-20 flex flex-col p-6 gap-4 text-center">
-          <Link href="/" className="text-white tracking-widest uppercase text-sm">Home</Link>
-          <Link href="/collections" className="text-white tracking-widest uppercase text-sm">Collections</Link>
-          <Link href="/contact" className="text-white tracking-widest uppercase text-sm">Contact Us</Link>
+          <Link href="/" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Home</Link>
+          <Link href="/collections" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Collections</Link>
+          <Link href="/contact" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Contact Us</Link>
         </div>
       )}
     </motion.header>
