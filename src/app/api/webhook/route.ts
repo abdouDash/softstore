@@ -24,7 +24,6 @@ export async function POST(req: Request) {
     
     console.log("✅ Payment successful for:", session.customer_details.email);
     
-    // Save to Supabase (using a mock product_id for now)
     const { error } = await supabaseAdmin.from("purchases").insert({
       email: session.customer_details.email,
       stripe_session_id: session.id,
@@ -33,9 +32,11 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error("Supabase Error:", error);
+      console.error("❌ Supabase Insert Error:", error);
       return NextResponse.json({ error: "Database error" }, { status: 500 });
     }
+    
+    console.log("✅ Successfully saved to Supabase!");
   }
 
   return NextResponse.json({ received: true });
