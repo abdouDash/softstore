@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
 import { ShieldCheck, Zap, Lock, Star, ArrowRight, ShoppingBag } from "lucide-react";
 
 const PACKS = [
@@ -20,8 +20,8 @@ function PackCard({ pack }: { pack: any }) {
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 400, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 400, damping: 30 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
 
   function handleMouse(event: React.MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -38,59 +38,17 @@ function PackCard({ pack }: { pack: any }) {
 
         <Link href={`/packs/${pack.slug}`} className="flex flex-col h-full relative z-10">
           
-          {/* 3D Gaming Setup Container */}
-          <div className="relative w-full aspect-[4/3] flex flex-col items-center justify-end mb-6" style={{ transform: "translateZ(40px)" }}>
-            
-            {/* Desk Surface */}
-            <div className="absolute bottom-0 w-[110%] h-8 bg-gradient-to-t from-[#050000] via-[#111] to-[#222] rounded-t-xl shadow-[0_-5px_20px_rgba(0,0,0,0.8)] border-t border-gray-700/50"></div>
-
-            {/* Monitor Setup */}
-            <div className="relative w-[85%] aspect-video bg-black rounded-lg p-1.5 border-[3px] border-[#1a1a1a] shadow-[0_15px_30px_rgba(0,0,0,0.9)] z-20 group-hover:border-[#2a2a2a] transition-colors duration-500">
-              <img src={pack.image} alt={pack.title} className="w-full h-full object-cover rounded-md opacity-90 group-hover:opacity-100 transition-opacity" />
-              
-              {/* Screen Reflection */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none rounded-md"></div>
-              
-              {/* RGB Under-glow */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2/3 h-2 bg-red-500 blur-md rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            </div>
-
-            {/* Monitor Stand */}
-            <div className="relative z-10 flex flex-col items-center -mt-1">
-              <div className="w-12 h-14 bg-gradient-to-b from-[#222] via-[#111] to-black border-x border-gray-700 rounded-t-sm"></div>
-              <div className="w-32 h-2 bg-gradient-to-r from-[#111] via-[#333] to-[#111] rounded-sm shadow-[0_5px_10px_rgba(0,0,0,0.8)]"></div>
-            </div>
-
-            {/* Keyboard & Mouse (RGB) */}
-            <div className="relative w-[90%] flex justify-between items-end z-30 px-4 -mt-1 mb-2">
-              
-              {/* Keyboard */}
-              <div className="relative w-[65%] h-7 bg-[#0a0a0a] rounded-md border-t border-gray-600 shadow-[0_0_15px_rgba(255,0,0,0.3)] p-1 flex flex-col justify-between overflow-hidden">
-                 {/* Keys */}
-                 <div className="flex justify-between w-full px-1">
-                   {[...Array(12)].map((_, i) => <div key={i} className="w-[6%] h-2 bg-[#1a1a1a] rounded-[1px] border-b border-gray-700"></div>)}
-                 </div>
-                 <div className="flex justify-between w-full px-2">
-                   {[...Array(10)].map((_, i) => <div key={i} className="w-[7%] h-2 bg-[#1a1a1a] rounded-[1px] border-b border-gray-700"></div>)}
-                 </div>
-                 {/* Keyboard RGB Glow */}
-                 <div className="absolute bottom-0 left-0 w-full h-[3px] bg-red-600 blur-[2px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-
-              {/* Mouse */}
-              <div className="relative w-10 h-14 bg-[#0a0a0a] rounded-[40%_40%_50%_50%] border-t border-gray-600 shadow-[0_0_15px_rgba(255,0,0,0.3)] flex flex-col items-center pt-2 overflow-hidden">
-                 <div className="w-[1px] h-4 bg-gray-700"></div>
-                 <div className="w-2 h-2 rounded-full bg-[#1a1a1a] border border-gray-700 mt-1"></div>
-                 {/* Mouse RGB Glow */}
-                 <div className="absolute bottom-0 left-0 w-full h-[3px] bg-red-600 blur-[2px] opacity-80 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-
-            </div>
-            
-            {/* Rating Badge */}
-            <div className="absolute top-0 right-2 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-white flex items-center gap-1 border border-red-500/30 z-40">
-              <Star size={12} className="text-red-500 fill-red-500" /> 4.9
-            </div>
+          {/* Floating 3D Image without Frame */}
+          <div className="relative w-full aspect-video flex items-center justify-center mb-8" style={{ transform: "translateZ(50px)" }}>
+            <motion.img 
+              src={pack.image} 
+              alt={pack.title} 
+              className="w-full h-full object-cover rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] group-hover:shadow-[0_30px_60px_rgba(220,38,38,0.3)] transition-shadow duration-500" 
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            />
+            {/* Subtle Reflection */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none rounded-xl"></div>
           </div>
           
           {/* Details */}
@@ -116,6 +74,9 @@ function PackCard({ pack }: { pack: any }) {
 }
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+
   return (
     <div className="w-full min-h-screen pt-20 bg-[#050000] relative overflow-hidden font-sans vampire-bg">
       <div className="fog"></div>
@@ -128,8 +89,9 @@ export default function Home() {
         <div className="lightning"></div>
       </div>
 
-      <motion.div className="absolute text-4xl text-red-700/50 z-0" style={{ top: '20%', left: '5%' }} animate={{ y: [0, -30, 0], rotate: [0, 20, 0] }} transition={{ duration: 6, repeat: Infinity }}>🦇</motion.div>
-      <motion.div className="absolute text-6xl text-red-900/40 z-0" style={{ top: '60%', right: '5%' }} animate={{ y: [0, 40, 0], rotate: [0, -20, 0] }} transition={{ duration: 8, repeat: Infinity }}>🩸</motion.div>
+      {/* Parallax Floating Elements */}
+      <motion.div className="absolute text-4xl text-red-700/50 z-0" style={{ top: '20%', left: '5%', y: yBg }} animate={{ y: [0, -30, 0], rotate: [0, 20, 0] }} transition={{ duration: 6, repeat: Infinity }}>🦇</motion.div>
+      <motion.div className="absolute text-6xl text-red-900/40 z-0" style={{ top: '60%', right: '5%', y: yBg }} animate={{ y: [0, 40, 0], rotate: [0, -20, 0] }} transition={{ duration: 8, repeat: Infinity }}>🩸</motion.div>
 
       <section className="relative max-w-[1400px] mx-auto px-4 md:px-8 pt-24 pb-16 flex flex-col items-center text-center z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="z-10 flex flex-col items-center w-full">
