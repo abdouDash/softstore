@@ -10,9 +10,9 @@ export default function Header() {
     <header className="w-full bg-[#050000]/90 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         
-        <Link href="/" className="text-lg md:text-xl font-bold tracking-widest uppercase flex items-center gap-3 text-white">
+        <Link href="/" className="text-xl md:text-2xl font-bold tracking-widest uppercase flex items-center gap-3 text-white">
           <Skull className="w-6 h-6 text-red-600" />
-          Crimson Studios
+          Abdou
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-[#888888] font-medium">
@@ -23,9 +23,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/collections" className="text-xs tracking-widest uppercase text-white hover:text-red-500 transition-colors">
-            Login
-          </Link>
           <Link href="/collections" className="bg-red-700 hover:bg-red-600 text-white px-6 py-2.5 rounded-full text-xs tracking-widest uppercase font-semibold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]">
             Get Access
           </Link>

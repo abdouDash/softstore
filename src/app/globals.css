@@ -151,3 +151,48 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px #ff0000;
 }
+
+/* 3D Tilt Card Effect */
+.card-3d-wrapper {
+  perspective: 1000px;
+}
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(255, 0, 0, 0.1);
+}
+
+.card-3d:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 40px rgba(255, 0, 0, 0.4);
+  border-color: rgba(255, 0, 0, 0.6);
+}
+
+.card-content {
+  transform: translateZ(50px);
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  border-top: 1px solid rgba(255, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem 0;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px #ff0000;
+}
