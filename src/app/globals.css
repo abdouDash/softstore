@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0a0a;
+  --bg: #050505;
   --text: #ffffff;
   --accent: #dc2626;
 }
@@ -13,14 +13,12 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: auto; /* Return to default cursor */
 }
 
 .font-serif {
   font-family: 'Playfair Display', serif;
 }
 
-/* Softpxl Style Elements */
 .hero-glow {
   position: absolute;
   top: 50%;
@@ -28,7 +26,7 @@ body {
   transform: translate(-50%, -50%);
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.1) 0%, rgba(0,0,0,0) 60%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(0,0,0,0) 60%);
   filter: blur(100px);
   pointer-events: none;
   z-index: 0;
@@ -67,11 +65,32 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }
 
-/* Colorful Hover Effect for Cards */
+/* Colorful Hover Effect */
 .card-hover-glow {
-  transition: all 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .card-hover-glow:hover {
-  box-shadow: 0 0 30px rgba(220, 38, 38, 0.2), 0 0 60px rgba(168, 85, 247, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+.card-image {
+  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.group:hover .card-image {
+  transform: scale(1.08) translateZ(30px);
+}
+
+/* Stats Divider */
+.stat-divider {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+/* Feature Icon Glow */
+.feature-icon {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(168, 85, 247, 0.2));
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
