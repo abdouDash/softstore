@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import { motion, useMotionValue, useTransform, useInView, animate } from "framer-motion";
-import { ArrowRight, Download, Layers, Monitor, Star, ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, Download, Layers, Monitor, Star, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const PACKS = [
   { id: 1, slug: "luxury-cars", title: "luxury cars", price: 12.00, image: "https://images.unsplash.com/photo-1549396535-c11d5c69b9c2?q=80&w=800&auto=format&fit=crop", tag: "LATEST DROP" },
-  { id: 2, slug: "timepieces", title: "timepieces", price: 15.00, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop" },
+  { id: 2, slug: "timepieces", title: "timepieces", price: 15.00, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop", tag: "EXCLUSIVE" },
   { id: 3, slug: "the-suit", title: "the suit", price: 10.00, image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop" },
   { id: 4, slug: "the-yacht", title: "the yacht", price: 18.00, image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?q=80&w=800&auto=format&fit=crop" },
   { id: 5, slug: "whiskey-cigars", title: "whiskey & cigars", price: 9.00, image: "https://images.unsplash.com/photo-1527281400683-1aae777175f8?q=80&w=800&auto=format&fit=crop" },
@@ -43,8 +43,8 @@ function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number
 function PackCard({ pack }: { pack: any }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(x, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(y, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(x, [-0.5, 0.5], ["-8deg", "8deg"]);
 
   function handleMouse(event: React.MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -54,40 +54,57 @@ function PackCard({ pack }: { pack: any }) {
 
   return (
     <motion.div 
-      className="perspective-[1200px] w-full" 
+      className="perspective-[1200px] w-full group cursor-pointer" 
       onMouseMove={handleMouse} 
       onMouseLeave={() => { x.set(0); y.set(0); }}
     >
-      <motion.div 
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} 
-        className="group cursor-pointer flex flex-col card-hover-glow rounded-2xl border border-white/5 bg-[#0a0a0a] p-3"
-      >
-        <Link href={`/packs/${pack.slug}`}>
-          <div className="bg-[#181818] rounded-xl p-6 flex items-center justify-center aspect-[4/3] relative overflow-hidden">
+      <Link href={`/packs/${pack.slug}`}>
+        <motion.div 
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} 
+          className="flex flex-col"
+        >
+          {/* Glass Card Container */}
+          <div className="glass-card rounded-[32px] p-6 relative overflow-hidden flex items-center justify-center aspect-[4/3] mb-4">
+            
+            {/* Badges */}
             {pack.tag && (
-              <div className="absolute top-3 left-3 bg-red-500/10 text-red-400 border border-red-500/20 text-[9px] font-bold px-2 py-1 rounded-full tracking-wider z-20">
+              <div className={`absolute top-5 right-5 z-20 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase ${
+                pack.tag === 'EXCLUSIVE' 
+                  ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.3)]' 
+                  : 'bg-white/10 text-white border border-white/20'
+              }`}>
                 {pack.tag}
               </div>
             )}
-            <div className="relative w-full max-w-[200px]">
-              <div className="bg-black rounded-lg p-1 border-[2px] border-gray-700 shadow-2xl relative z-10">
-                <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md card-image" />
+
+            {/* 3D iMac Mockup */}
+            <div className="relative w-full max-w-[240px] transform transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="imac-screen p-1.5 relative z-10">
+                <img src={pack.image} alt={pack.title} className="w-full aspect-video object-cover rounded-md opacity-90 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="relative flex flex-col items-center -mt-0.5 z-0">
-                <div className="w-12 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-b-sm"></div>
-                <div className="w-24 h-1.5 bg-gray-400 rounded-t-sm shadow-md"></div>
+              <div className="relative flex flex-col items-center -mt-1 z-0">
+                <div className="imac-stand w-16 h-12 rounded-b-sm"></div>
+                <div className="imac-base w-28 h-2 rounded-t-sm"></div>
               </div>
             </div>
+
+            {/* Slider Dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+              <div className="slider-dot w-6 active"></div>
+              <div className="slider-dot w-4"></div>
+              <div className="slider-dot w-4"></div>
+            </div>
           </div>
-          <div className="flex justify-between items-start mt-4 px-2 pb-2">
+
+          {/* Text Below Card */}
+          <div className="flex justify-between items-center px-2" style={{ transform: "translateZ(20px)" }}>
             <div>
-              <h3 className="text-base font-medium text-white group-hover:text-red-400 transition-colors">{pack.title}</h3>
-              <p className="text-xs text-[#888] mt-0.5">10 wallpapers</p>
+              <h3 className="text-[15px] font-semibold text-white group-hover:text-red-500 transition-colors mb-0.5">{pack.title}</h3>
+              <p className="text-[13px] text-[#888]">10 wallpapers <span className="mx-1">•</span> ${pack.price.toFixed(2)}</p>
             </div>
-            <p className="text-sm text-white font-medium">${pack.price.toFixed(2)}</p>
           </div>
-        </Link>
-      </motion.div>
+        </motion.div>
+      </Link>
     </motion.div>
   );
 }
@@ -118,16 +135,12 @@ export default function Home() {
         <section className="mb-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
             <div className="flex flex-col items-center">
-              <span className="text-4xl md:text-5xl font-serif text-white mb-2">
-                <AnimatedCounter target={451} />
-              </span>
+              <span className="text-4xl md:text-5xl font-serif text-white mb-2"><AnimatedCounter target={451} /></span>
               <span className="text-[10px] tracking-widest text-[#888] uppercase">Wallpapers</span>
             </div>
             <div className="hidden md:flex justify-center"><div className="stat-divider"></div></div>
             <div className="flex flex-col items-center">
-              <span className="text-4xl md:text-5xl font-serif text-white mb-2">
-                <AnimatedCounter target={5000} suffix="+" />
-              </span>
+              <span className="text-4xl md:text-5xl font-serif text-white mb-2"><AnimatedCounter target={5000} suffix="+" /></span>
               <span className="text-[10px] tracking-widest text-[#888] uppercase">Packs Sold</span>
             </div>
             <div className="hidden md:flex justify-center"><div className="stat-divider"></div></div>
@@ -150,18 +163,10 @@ export default function Home() {
             <p className="text-sm text-[#888888]">pick any packs you like and save up to 35%</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">
-              3 packs <span className="text-[#888]">$18</span>
-            </button>
-            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">
-              5 packs <span className="text-[#888]">$29</span>
-            </button>
-            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">
-              10 packs <span className="text-[#888]">$49</span>
-            </button>
-            <button className="bg-white text-black font-semibold text-sm px-6 py-2.5 rounded-full hover:bg-gray-200 transition-colors ml-2">
-              start picking
-            </button>
+            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">3 packs <span className="text-[#888]">$18</span></button>
+            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">5 packs <span className="text-[#888]">$29</span></button>
+            <button className="border border-white/10 text-sm text-white px-4 py-2 rounded-full hover:bg-white/5 transition-colors">10 packs <span className="text-[#888]">$49</span></button>
+            <button className="bg-white text-black font-semibold text-sm px-6 py-2.5 rounded-full hover:bg-gray-200 transition-colors ml-2">start picking</button>
           </div>
         </div>
 
@@ -175,7 +180,7 @@ export default function Home() {
         </div>
 
         {/* Grid */}
-        <div id="collection" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24">
+        <div id="collection" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-24">
           {PACKS.map((pack) => (
             <PackCard key={pack.id} pack={pack} />
           ))}
@@ -192,7 +197,7 @@ export default function Home() {
               <motion.div 
                 key={bundle.id}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className={`bg-[#0f0f0f] border border-white/5 rounded-2xl p-6 flex items-center justify-between gap-4 group cursor-pointer hover:border-white/10 transition-colors ${i === 2 ? 'md:col-span-2 md:mx-auto md:w-1/2' : ''}`}
+                className={`glass-card rounded-2xl p-6 flex items-center justify-between gap-4 group cursor-pointer ${i === 2 ? 'md:col-span-2 md:mx-auto md:w-1/2' : ''}`}
               >
                 <div className="flex items-center gap-6">
                   <div className="w-24 h-20 bg-[#1a1a1a] rounded-xl overflow-hidden relative">
@@ -227,9 +232,9 @@ export default function Home() {
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-8 flex flex-col items-center text-center hover:border-white/10 transition-colors"
+                className="glass-card rounded-2xl p-8 flex flex-col items-center text-center"
               >
-                <div className="w-14 h-14 rounded-2xl feature-icon flex items-center justify-center mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
                   <feat.icon size={24} className="text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{feat.title}</h3>
@@ -240,7 +245,7 @@ export default function Home() {
         </section>
 
         {/* CTA */}
-        <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#1a0000] to-[#050505] border border-red-900/20 p-12 md:p-20 text-center mb-16">
+        <section className="relative rounded-3xl overflow-hidden glass-card p-12 md:p-20 text-center mb-16">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-3/4 bg-red-600/10 blur-[100px] rounded-full pointer-events-none"></div>
           <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">elevate your screen today.</h2>
