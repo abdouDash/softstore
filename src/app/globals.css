@@ -2,8 +2,9 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #050000;
-  --text: #FFFFFF;
+  --bg: #0a0a0a;
+  --text: #ffffff;
+  --accent: #cc1426;
 }
 
 body {
@@ -12,135 +13,102 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
 }
 
 .font-serif {
   font-family: 'Playfair Display', serif;
 }
 
-.vampire-bg {
-  background: radial-gradient(circle at 50% 10%, #2a0000 0%, #0a0000 60%, #000000 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.fog {
-  position: absolute;
-  width: 200%;
-  height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.15;
-  animation: fogMove 60s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes fogMove {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.blood-moon {
-  position: absolute;
-  top: 8%;
-  right: 10%;
-  width: 160px;
-  height: 160px;
+/* Custom Cursor */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ff4d4d 0%, #a30000 40%, #4d0000 70%, #1a0000 100%);
-  box-shadow: inset -25px -25px 40px rgba(0,0,0,0.8), inset 10px 10px 20px rgba(255,255,255,0.1), 0 0 80px 20px rgba(255, 0, 0, 0.3);
-  animation: moonFloat 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+  /* Smooth lerp via JS */
+}
+
+/* 3D Card Effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.card-3d:hover {
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(204, 20, 38, 0.2);
+}
+
+.card-image {
+  transform: translateZ(40px);
+}
+
+.card-text {
+  transform: translateZ(20px);
+}
+
+/* Softpxl Vibe Elements */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(204, 20, 38, 0.15) 0%, rgba(0,0,0,0) 60%);
+  filter: blur(80px);
+  pointer-events: none;
   z-index: 0;
 }
 
-@keyframes moonFloat {
-  0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(-15px) rotate(5deg); }
+.latest-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ccc;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.spooky-glow {
-  text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 50px #8b0000;
-}
-
-/* Realistic Lightning */
-.epic-lightning {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.lightning-flash {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 100, 100, 0.4);
-  opacity: 0;
-  animation: realFlash 15s infinite;
-}
-
-@keyframes realFlash {
-  0%, 88%, 92%, 96%, 100% { opacity: 0; }
-  89% { opacity: 0.3; }
-  90% { opacity: 0; }
-  91% { opacity: 0.6; }
-  93% { opacity: 0.1; }
-}
-
-.bolt-svg {
-  position: absolute;
-  fill: #fff;
-  filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 50px #ff0000);
-  opacity: 0;
-  animation: realBolt 15s infinite;
-}
-
-.bolt-svg:nth-child(2) { top: -50px; left: 10%; width: 250px; animation-delay: 0s; }
-.bolt-svg:nth-child(3) { top: -50px; right: 15%; width: 350px; animation-delay: 0.1s; }
-
-@keyframes realBolt {
-  0%, 88%, 92%, 96%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-  89% { opacity: 1; transform: scaleY(1); }
-  90% { opacity: 0; }
-  91% { opacity: 1; transform: scaleY(1.1); }
-  93% { opacity: 0; }
-}
-
-/* Advanced 3D Card Hover */
-.explore-card {
-  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.explore-card:hover {
-  box-shadow: 0 30px 60px rgba(220,38,38,0.4), 0 0 40px rgba(220,38,38,0.2);
-  border-color: rgba(220,38,38,0.8);
-}
-/* Fast Lightning */
-.epic-lightning {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 5; overflow: hidden;
-}
-.lightning-flash {
-  position: absolute; inset: 0;
-  background: rgba(255, 50, 50, 0.4);
-  opacity: 0; animation: fastFlash 10s infinite;
-}
-@keyframes fastFlash {
-  0%, 92%, 95%, 100% { opacity: 0; }
-  93% { opacity: 0.6; }
-  94% { opacity: 0.1; }
-}
-.bolt-svg {
-  position: absolute; fill: #fff;
-  filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 50px #ff0000);
-  opacity: 0; animation: fastBolt 10s infinite;
-}
-.bolt-svg:nth-child(2) { top: -50px; left: 15%; width: 300px; animation-delay: 0s; }
-@keyframes fastBolt {
-  0%, 92%, 95%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-  93% { opacity: 1; transform: scaleY(1); }
-  94% { opacity: 0; }
+.latest-badge::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
 }

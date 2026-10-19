@@ -1,64 +1,60 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 100) setHidden(true);
-    else setHidden(false);
-  });
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.header 
-      variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="w-full bg-[#050000]/80 backdrop-blur-xl fixed top-0 z-50 border-b border-red-900/20"
+      initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}
+      className={`w-full fixed top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'}`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
-        <Link href="/" className="group flex items-baseline gap-2">
-          <motion.span 
-            animate={{ color: ["#ff0000", "#ff5555", "#ff0000"], textShadow: ["0 0 10px #ff0000", "0 0 20px #ff0000", "0 0 10px #ff0000"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="text-3xl md:text-4xl font-black uppercase leading-none"
-          >
-            A
-          </motion.span>
-          <span className="text-base md:text-lg font-serif tracking-[0.1em] text-white group-hover:text-red-400 transition-colors font-medium">
-            AbdouPxl
-          </span>
+        {/* Brand Name (Clean) */}
+        <Link href="/" className="text-xl md:text-2xl font-serif tracking-tight text-white flex items-center gap-2">
+          <span className="text-red-600 font-sans font-black text-2xl">A</span>
+          AbdouPxl
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-[#888888] font-medium">
-          <Link href="/" className="hover:text-red-500 transition-colors">Home</Link>
-          <Link href="/collections" className="hover:text-red-500 transition-colors">Collections</Link>
-          <Link href="/contact" className="hover:text-red-500 transition-colors">Contact Us</Link>
+        {/* Center Nav */}
+        <nav className="hidden md:flex items-center gap-8 text-sm text-[#888888] font-medium">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <Link href="/collections" className="hover:text-white transition-colors">Collections</Link>
+          <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/collections" className="bg-red-700 hover:bg-red-600 text-white px-6 py-2.5 rounded-full text-xs tracking-widest uppercase font-semibold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] hover:shadow-[0_0_25px_rgba(220,38,38,0.8)]">
+        {/* Right Action */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link href="/collections" className="text-sm text-[#888888] hover:text-white transition-colors">Login</Link>
+          <Link href="/collections" className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">
             Get Access
           </Link>
         </div>
 
+        {/* Mobile Toggle */}
         <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white p-2">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#0a0000] border-b border-red-900/30 absolute w-full left-0 top-20 flex flex-col p-6 gap-4 text-center">
-          <Link href="/" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Home</Link>
-          <Link href="/collections" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Collections</Link>
-          <Link href="/contact" className="text-white tracking-widest uppercase text-sm hover:text-red-500">Contact Us</Link>
+        <div className="md:hidden absolute top-20 left-0 w-full bg-[#0a0a0a] border-b border-white/10 p-6 flex flex-col gap-4 text-center">
+          <Link href="/" className="text-white text-lg hover:text-red-500">Home</Link>
+          <Link href="/collections" className="text-white text-lg hover:text-red-500">Collections</Link>
+          <Link href="/contact" className="text-white text-lg hover:text-red-500">Contact</Link>
+          <Link href="/collections" className="bg-white text-black px-6 py-3 rounded-full font-semibold mt-4">Get Access</Link>
         </div>
       )}
     </motion.header>
