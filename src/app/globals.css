@@ -2,9 +2,9 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0a0a;
+  --bg: #050505;
   --text: #ffffff;
-  --accent: #cc1426;
+  --accent: #dc2626;
 }
 
 body {
@@ -20,69 +20,39 @@ body {
   font-family: 'Playfair Display', serif;
 }
 
-/* Custom Cursor */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
+/* Softpxl Style Clean Cursor */
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, border-color 0.2s;
-  /* Smooth lerp via JS */
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  mix-blend-mode: difference;
 }
 
-/* 3D Card Effects */
-.perspective-1000 {
-  perspective: 1000px;
+.cursor-ring.hovering {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(220, 38, 38, 0.8);
+  background-color: rgba(220, 38, 38, 0.1);
 }
 
-.card-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-  will-change: transform;
-}
-
-.card-3d:hover {
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(204, 20, 38, 0.2);
-}
-
-.card-image {
-  transform: translateZ(40px);
-}
-
-.card-text {
-  transform: translateZ(20px);
-}
-
-/* Softpxl Vibe Elements */
+/* Hero Glow */
 .hero-glow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 80vw;
-  background: radial-gradient(circle, rgba(204, 20, 38, 0.15) 0%, rgba(0,0,0,0) 60%);
-  filter: blur(80px);
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, rgba(0,0,0,0) 60%);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
 }
@@ -91,16 +61,16 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  color: #ccc;
+  color: #aaa;
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .latest-badge::before {
@@ -111,4 +81,11 @@ body {
   background-color: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }

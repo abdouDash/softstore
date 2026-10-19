@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,30 +14,26 @@ export default function Header() {
   }, []);
 
   return (
-    <motion.header 
-      initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}
-      className={`w-full fixed top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'}`}
-    >
+    <header className={`w-full fixed top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#050505]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
-        {/* Brand Name (Clean) */}
-        <Link href="/" className="text-xl md:text-2xl font-serif tracking-tight text-white flex items-center gap-2">
-          <span className="text-red-600 font-sans font-black text-2xl">A</span>
+        {/* Logo */}
+        <Link href="/" className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span className="text-red-600 font-black text-2xl">A</span>
           AbdouPxl
         </Link>
 
         {/* Center Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-[#888888] font-medium">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <Link href="/collections" className="hover:text-white transition-colors">Collections</Link>
+          <Link href="/" className="hover:text-white transition-colors">desktop</Link>
+          <Link href="/collections" className="hover:text-white transition-colors">iPhone</Link>
           <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
         </nav>
 
         {/* Right Action */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/collections" className="text-sm text-[#888888] hover:text-white transition-colors">Login</Link>
-          <Link href="/collections" className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">
-            Get Access
+        <div className="hidden md:flex items-center gap-4">
+          <Link href="/collections" className="bg-white text-black px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">
+            get access
           </Link>
         </div>
 
@@ -50,13 +45,13 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-[#0a0a0a] border-b border-white/10 p-6 flex flex-col gap-4 text-center">
-          <Link href="/" className="text-white text-lg hover:text-red-500">Home</Link>
-          <Link href="/collections" className="text-white text-lg hover:text-red-500">Collections</Link>
+        <div className="md:hidden absolute top-20 left-0 w-full bg-[#050505] border-b border-white/10 p-6 flex flex-col gap-4 text-center">
+          <Link href="/" className="text-white text-lg hover:text-red-500">desktop</Link>
+          <Link href="/collections" className="text-white text-lg hover:text-red-500">iPhone</Link>
           <Link href="/contact" className="text-white text-lg hover:text-red-500">Contact</Link>
-          <Link href="/collections" className="bg-white text-black px-6 py-3 rounded-full font-semibold mt-4">Get Access</Link>
+          <Link href="/collections" className="bg-white text-black px-6 py-3 rounded-full font-semibold mt-4">get access</Link>
         </div>
       )}
-    </motion.header>
+    </header>
   );
 }
