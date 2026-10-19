@@ -19,93 +19,102 @@ body {
   font-family: 'Playfair Display', serif;
 }
 
-.hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60vw;
-  height: 60vw;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(0,0,0,0) 60%);
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.latest-badge {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  color: #aaa;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.latest-badge::before {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-  70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
-}
-
-/* iPhone Glass Effect & Red Glow */
-.glass-card {
+/* iPhone Glassmorphism */
+.glass-nav {
   background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Vertical Card Container (Like Softpxl) */
+.glass-card-vertical {
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.group:hover .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(220, 38, 38, 0.4);
-  box-shadow: 0 0 40px rgba(220, 38, 38, 0.25), inset 0 0 20px rgba(220, 38, 38, 0.05);
+/* Dynamic Glow based on Image Color */
+.glass-card-vertical::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, transparent 40%, var(--glow-color, #dc2626) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
-/* White iMac Monitor */
+.group:hover .glass-card-vertical::before {
+  opacity: 1;
+}
+
+.group:hover .glass-card-vertical {
+  box-shadow: 0 0 40px var(--glow-shadow, rgba(220, 38, 38, 0.2));
+  transform: translateY(-5px);
+}
+
+/* White iMac 3D Mockup */
 .imac-screen {
   background: #000;
-  border: 4px solid #e5e5e5; /* Silver/White frame */
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  border: 6px solid #e5e5e5;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255,255,255,0.05);
+  position: relative;
+  z-index: 10;
+  transition: transform 0.5s ease;
+}
+
+.group:hover .imac-screen {
+  transform: translateZ(30px) scale(1.02);
 }
 
 .imac-stand {
-  background: linear-gradient(to bottom, #d4d4d4, #a3a3a3);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  background: linear-gradient(180deg, #d4d4d4 0%, #a3a3a3 100%);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 5;
 }
 
 .imac-base {
-  background: linear-gradient(to right, #a3a3a3, #e5e5e5, #a3a3a3);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+  background: linear-gradient(90deg, #a3a3a3 0%, #e5e5e5 50%, #a3a3a3 100%);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 4;
 }
 
 /* Slider Dots */
 .slider-dot {
-  height: 2px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 .slider-dot.active {
   background: #fff;
-  width: 20px;
+  width: 24px;
+  box-shadow: 0 0 10px #fff;
 }
