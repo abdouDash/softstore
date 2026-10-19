@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #050505;
+  --bg: #0a0a0a;
   --text: #ffffff;
   --accent: #dc2626;
 }
@@ -13,37 +13,14 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none; /* Hide default cursor */
+  cursor: auto; /* Return to default cursor */
 }
 
 .font-serif {
   font-family: 'Playfair Display', serif;
 }
 
-/* Softpxl Style Clean Cursor */
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-  mix-blend-mode: difference;
-}
-
-.cursor-ring.hovering {
-  width: 64px;
-  height: 64px;
-  border-color: rgba(220, 38, 38, 0.8);
-  background-color: rgba(220, 38, 38, 0.1);
-}
-
-/* Hero Glow */
+/* Softpxl Style Elements */
 .hero-glow {
   position: absolute;
   top: 50%;
@@ -51,7 +28,7 @@ body {
   transform: translate(-50%, -50%);
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, rgba(0,0,0,0) 60%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.1) 0%, rgba(0,0,0,0) 60%);
   filter: blur(100px);
   pointer-events: none;
   z-index: 0;
@@ -88,4 +65,13 @@ body {
   0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
   70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
   100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+/* Colorful Hover Effect for Cards */
+.card-hover-glow {
+  transition: all 0.4s ease;
+}
+.card-hover-glow:hover {
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.2), 0 0 60px rgba(168, 85, 247, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
