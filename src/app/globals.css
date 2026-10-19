@@ -19,20 +19,89 @@ body {
   font-family: 'Outfit', sans-serif;
 }
 
-/* Softpxl Hero Glow */
-.hero-radial-glow {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0) 60%);
-  pointer-events: none;
-  z-index: 0;
+/* Hero Dynamic Glow (Matches Image Color) */
+.hero-glow-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-/* Latest Drop Badge */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: var(--glow-color, rgba(255, 0, 0, 0.4));
+  filter: blur(150px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+/* Refined iMac Monitor */
+.imac-frame {
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 10px 10px 32px 10px; /* Bottom chin */
+  box-shadow: 
+    0 40px 80px -20px rgba(0,0,0,0.9),
+    inset 0 2px 4px rgba(255,255,255,1),
+    inset 0 -2px 10px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.imac-screen {
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+.imac-chin {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imac-logo {
+  width: 12px;
+  height: 12px;
+  background: #d4d4d4;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.imac-stand-neck {
+  width: 120px;
+  height: 90px;
+  background: linear-gradient(180deg, #e5e5e5 0%, #b3b3b3 100%);
+  margin: 0 auto;
+  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
+  box-shadow: inset 0 10px 10px -5px rgba(0,0,0,0.2);
+  z-index: 5;
+}
+
+.imac-stand-base {
+  width: 200px;
+  height: 6px;
+  background: linear-gradient(90deg, #999, #e5e5e5, #999);
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.8);
+  z-index: 4;
+}
+
+/* Rest of the Softpxl Elements */
 .latest-badge {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -47,7 +116,6 @@ body {
   align-items: center;
   gap: 10px;
 }
-
 .latest-badge-dot {
   width: 6px;
   height: 6px;
@@ -55,16 +123,11 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 10px #ff0000;
 }
-
-/* Glassmorphism for Navbar */
 .glass-nav {
   background: rgba(10, 10, 10, 0.6);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-/* Tall Glass Card (Softpxl Style) */
 .pack-card {
   background: #141414;
   border: 1px solid rgba(255, 255, 255, 0.03);
@@ -79,115 +142,19 @@ body {
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
 .pack-card:hover {
   background: #181818;
   border-color: var(--card-glow-border, rgba(255, 255, 255, 0.1));
   box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--card-glow-shadow, rgba(255,255,255,0.05));
   transform: translateY(-5px);
 }
-
-/* iMac Mockup - White Frame */
-.imac-frame {
+.pack-card .imac-frame {
   background: #e5e5e5;
   border-radius: 12px;
-  padding: 6px 6px 24px 6px; /* Extra padding at bottom for chin */
+  padding: 6px 6px 20px 6px;
   box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.5);
-  position: relative;
-  z-index: 10;
-  transition: transform 0.4s ease;
 }
-
-.pack-card:hover .imac-frame {
-  transform: scale(1.05) translateZ(20px);
-}
-
-.imac-screen {
-  background: #000;
-  border-radius: 6px;
-  overflow: hidden;
-  position: relative;
-}
-
-.imac-chin {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imac-logo {
-  width: 8px;
-  height: 8px;
-  background: #999;
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.imac-stand-neck {
-  width: 60px;
-  height: 50px;
-  background: linear-gradient(90deg, #b3b3b3, #e5e5e5, #b3b3b3);
-  margin: 0 auto;
-  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0% 100%);
-  box-shadow: inset 0 10px 10px -5px rgba(0,0,0,0.3);
-  z-index: 5;
-}
-
-.imac-stand-base {
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(90deg, #999, #e5e5e5, #999);
-  margin: 0 auto;
-  border-radius: 4px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-  z-index: 4;
-}
-
-/* Slider Dots */
-.slider-dots {
-  display: flex;
-  gap: 6px;
-  margin-top: 20px;
-  z-index: 10;
-}
-
-.dot {
-  height: 3px;
-  width: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-
-.dot.active {
-  width: 20px;
-  background: #fff;
-}
-
-/* Bundles Stacked Images */
-.stacked-images {
-  position: relative;
-  width: 100px;
-  height: 70px;
-}
-
-.stacked-img {
-  position: absolute;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
-}
-
-.stacked-img:nth-child(1) { top: 0; left: 0; width: 70px; height: 50px; transform: rotate(-10deg); z-index: 1; }
-.stacked-img:nth-child(2) { top: 5px; left: 15px; width: 70px; height: 50px; transform: rotate(5deg); z-index: 2; }
-.stacked-img:nth-child(3) { top: 10px; left: 30px; width: 70px; height: 50px; transform: rotate(-5deg); z-index: 3; }
-
-.group:hover .stacked-img:nth-child(1) { transform: rotate(-15deg) translateX(-10px); }
-.group:hover .stacked-img:nth-child(3) { transform: rotate(10deg) translateX(10px); }
+.pack-card .imac-chin { height: 20px; }
+.pack-card .imac-logo { width: 8px; height: 8px; }
+.pack-card .imac-stand-neck { width: 50px; height: 40px; }
+.pack-card .imac-stand-base { width: 100px; height: 4px; }
